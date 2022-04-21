@@ -4,22 +4,50 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
-    public GameObject asteroid;
+    //public GameObject asteroid;
+    float time;
+    float healthTime;
+    PlayerMovement PlayerMovement;
     // Start is called before the first frame update
     void Start()
     {
-        
+        PlayerMovement = GameObject.Find("Player").GetComponent<PlayerMovement>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Random.Range(0,100)<1f)
-        {
-           // float x = Random.Range(-3.0f, 3.0f);
-           GameObject temp= PoolScript.instance.GetObjectFromPool("astriod");
-            temp.SetActive(true);
-        }
         
+            time = time + Time.deltaTime;
+            if (time > 3f)
+            {
+                // GameObject temp=Instantiate(ObjectPoolScript.instance.GetObjectsFromPool("Asteroid"),new Vector3(Random.Range(-8.0f, 8f),4f,0f),Quaternion.identity);
+                GameObject tempAsteroid = PoolScript.instance.GetObjectsFromPool("asteroid");
+            if (tempAsteroid != null)
+            {
+                tempAsteroid.transform.position = new Vector3(Random.Range(-8.0f, 8f), 4f, 0f);
+                tempAsteroid.SetActive(true);
+            }
+                time = 0;
+
+                /* if (temp != null)
+                 {
+                     this.transform.position = temp.transform.position+new Vector3(Random.Range(-8.0f, 8f), 4f, 0f);
+                     temp.SetActive(true);
+                     time = 0;
+                 }*/
+            }
+            healthTime = healthTime + Time.deltaTime;
+        if (healthTime > 3f)
+        {
+            GameObject tempHealth = (PoolScript.instance.GetObjectsFromPool("Health"));
+            if (tempHealth != null)
+            {
+                tempHealth.transform.position = new Vector3(Random.Range(-8.0f, 8f), 4f, 0f);
+                tempHealth.SetActive(true);
+            }
+            healthTime = 0;
+        }
+
     }
 }
