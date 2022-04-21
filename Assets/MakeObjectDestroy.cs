@@ -17,6 +17,6 @@ public class MakeObjectDestroy : MonoBehaviour
     }
     public void OnBecameInvisible()
     {
-        Destroy(gameObject);
+        //Destroy(gameObject);
     }
 }
