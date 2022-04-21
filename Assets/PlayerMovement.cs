@@ -1,15 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public Slider healthBar;
     public int playerSpeed;
     int playerHealth = 10;
     int maxHealth = 10;
     // public GameObject bulletPrefab;
     public Vector3 offSet;
     public bool isGameOver = false;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -23,9 +26,9 @@ public class PlayerMovement : MonoBehaviour
             float inputX = Input.GetAxis("Horizontal");
         float inputY = Input.GetAxis("Vertical");
             transform.Translate(inputY * playerSpeed * Time.deltaTime,inputX * playerSpeed * Time.deltaTime, 0f);
-            //Clamp player position within gameWindow
-
-            if (Input.GetKeyDown(KeyCode.Space))
+        //Clamp player position within gameWindow
+        healthBar.value = (float)playerHealth / 10;
+        if (Input.GetKeyDown(KeyCode.Space))
             {
 
                 GameObject tempBullet = PoolScript.instance.GetObjectsFromPool("Bullet");
